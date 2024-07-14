@@ -35,17 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _a, _b, _c, _d, _e, _f;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", { value: true });
 var amqp = require("amqplib/callback_api");
 var dotenv = require("dotenv");
 dotenv.config();
 var USERNAME = (_a = process.env.USERNAME) !== null && _a !== void 0 ? _a : "guest";
 var PASSWORD = encodeURIComponent((_b = process.env.PASSWORD) !== null && _b !== void 0 ? _b : "password");
-var HOSTNAME = (_c = process.env.HOSTNAME) !== null && _c !== void 0 ? _c : "localhost";
-var PORT = parseInt((_d = process.env.PORT) !== null && _d !== void 0 ? _d : "5672", 10);
-var RABBITMQ_QUEUE = (_e = process.env.RABBITMQ_QUEUE) !== null && _e !== void 0 ? _e : "Queue";
-var API_HOST = (_f = process.env.API_URL) !== null && _f !== void 0 ? _f : "localhost";
+var QUEUE_HOST = process.env.QUEUE_HOST;
+var PORT = parseInt((_c = process.env.PORT) !== null && _c !== void 0 ? _c : "5672", 10);
+var RABBITMQ_QUEUE = (_d = process.env.RABBITMQ_QUEUE) !== null && _d !== void 0 ? _d : "Queue";
+var API_HOST = process.env.API_HOST;
 function sendDatatoAPI(data, queue) {
     return __awaiter(this, void 0, void 0, function () {
         var apiUrl, requestData, response;
@@ -94,7 +94,9 @@ function connect() {
         var _this = this;
         return __generator(this, function (_a) {
             try {
-                url_1 = "amqp://".concat(USERNAME, ":").concat(PASSWORD, "@").concat(HOSTNAME, ":").concat(PORT);
+                console.log("Connecting to RabbitMQ to Host: ", QUEUE_HOST);
+                console.log("API Host: ", API_HOST);
+                url_1 = "amqp://".concat(USERNAME, ":").concat(PASSWORD, "@").concat(QUEUE_HOST, ":").concat(PORT);
                 amqp.connect(url_1, function (err, conn) {
                     console.log("Connecting to RabbitMQ", url_1);
                     if (err)

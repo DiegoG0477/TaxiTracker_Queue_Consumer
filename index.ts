@@ -4,10 +4,10 @@ dotenv.config();
 
 const USERNAME: string = process.env.USERNAME ?? "guest";
 const PASSWORD: string = encodeURIComponent(process.env.PASSWORD ?? "password");
-const HOSTNAME: string = process.env.HOSTNAME ?? "localhost";
+const QUEUE_HOST: string | undefined = process.env.QUEUE_HOST;
 const PORT: number = parseInt(process.env.PORT ?? "5672", 10);
 const RABBITMQ_QUEUE: string = process.env.RABBITMQ_QUEUE ?? "Queue";
-const API_HOST: string = process.env.API_URL ?? "localhost";
+const API_HOST: string | undefined = process.env.API_HOST;
 
 async function sendDatatoAPI(data: any, queue: string) {
   //API QUEUE DATA
@@ -50,7 +50,9 @@ async function sendDatatoAPI(data: any, queue: string) {
 
 async function connect() {
   try {
-    const url = `amqp://${USERNAME}:${PASSWORD}@${HOSTNAME}:${PORT}`;
+    console.log("Connecting to RabbitMQ to Host: ", QUEUE_HOST);
+    console.log("API Host: ", API_HOST);
+    const url = `amqp://${USERNAME}:${PASSWORD}@${QUEUE_HOST}:${PORT}`;
     amqp.connect(url, (err: any, conn: amqp.Connection) => {
       console.log("Connecting to RabbitMQ", url);
       if (err) throw new Error(err);
