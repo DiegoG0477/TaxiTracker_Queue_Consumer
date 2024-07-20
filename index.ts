@@ -66,9 +66,10 @@ async function connect() {
           if (data?.content !== undefined) {
             const parsedContent: any = JSON.parse(data.content.toString());
             const queue: string = parsedContent.event.split('.')[0];
+            const parsedData: any = JSON.parse(parsedContent.data);
 
             console.log("order:processed:", parsedContent);
-            await sendDatatoAPI(parsedContent, queue);
+            await sendDatatoAPI(parsedData, queue);
             channel.ack(data);
           }
         });
