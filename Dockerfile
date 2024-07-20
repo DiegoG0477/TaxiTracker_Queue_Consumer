@@ -37,5 +37,8 @@ RUN pnpm install --production --frozen-lockfile
 # Copiar el archivo compilado desde la etapa de construcción
 COPY --from=builder /app/index.js ./index.js
 
+# Copiar el archivo .env al contenedor
+COPY .env .env
+
 # Comando de inicio
 CMD ["node", "index.js"]
