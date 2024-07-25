@@ -15,16 +15,16 @@ async function sendDatatoAPI(data: any, queue: string) {
 
   switch (queue) {
     case "driving":
-      apiUrl = `http://${API_HOST}/drivings`;
+      apiUrl = `https://${API_HOST}/drivings`;
       break;
     case "travel":
-      apiUrl = `http://${API_HOST}/travels`;
+      apiUrl = `https://${API_HOST}/travels`;
       break;
     case "geolocation":
-      apiUrl = `http://${API_HOST}/geolocation`;
+      apiUrl = `https://${API_HOST}/geolocation`;
       break;
     case "crash":
-      apiUrl = `http://${API_HOST}/crashes`;
+      apiUrl = `https://${API_HOST}/crashes`;
       break;
     
     default:
